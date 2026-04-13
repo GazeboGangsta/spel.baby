@@ -1,20 +1,95 @@
-/* Yespbellis Spell - The Elf From Outer Space */
-/* MySpace-inspired styles */
+/* ============================================
+   spell.baby — Yesbellis Spell
+   The Elf From Outer Space
+   "best viewed in Internet Explorer 6.0"
+   ============================================ */
 
-/* Reset & base styles will go here */
+/* --- RESET --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* --- BODY: cursor + starfield + base font --- */
 body {
-  /* placeholder - to be designed */
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: url('logos/favicon-32x32.png'), auto;
+  background-color: #000;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 40px 70px, #aaf, transparent),
+    radial-gradient(1px 1px at 50px 10px, #fff, transparent),
+    radial-gradient(1px 1px at 80px 50px, #ccf, transparent),
+    radial-gradient(1px 1px at 10px 80px, #fff, transparent),
+    radial-gradient(1px 1px at 70px 20px, #aaf, transparent),
+    radial-gradient(1px 1px at 60px 90px, #fff, transparent),
+    radial-gradient(1px 1px at 30px 60px, #ccf, transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent);
+  background-size: 100px 100px;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  color: #ccc;
   font-size: 12px;
 }
 
-#container {
-  max-width: 960px;
-  margin: 0 auto;
+a, button, .clickable {
+  cursor: url('logos/favicon-32x32.png'), pointer;
+}
+
+/* --- LOADING SCREEN --- */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#loading-content {
+  text-align: center;
+}
+
+#flash-icon {
+  font-size: 48px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+#loading-text {
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+#progress-outer {
+  width: 300px;
+  height: 18px;
+  background: #222;
+  border: 2px inset #444;
+  margin: 0 auto 8px;
+}
+
+#progress-inner {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff00ff, #ff69b4);
+  transition: width 0.1s linear;
+}
+
+#loading-percent {
+  color: #888;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  margin-bottom: 12px;
+}
+
+#flash-version {
+  color: #555;
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
 }
