@@ -131,3 +131,25 @@ audio.addEventListener('ended', function () {
   audio.play();
   updateMarquee();
 });
+
+// --- CURSOR SPARKLE TRAIL ---
+(function () {
+  var sparkles = [];
+  var chars = ['✦', '✧', '★', '·', '✶'];
+  var colors = ['#ff00ff', '#00ffff', '#ff0', '#ff69b4', '#0f0'];
+
+  document.addEventListener('mousemove', function (e) {
+    var spark = document.createElement('div');
+    spark.className = 'cursor-trail';
+    spark.textContent = chars[Math.floor(Math.random() * chars.length)];
+    spark.style.left = e.pageX + 'px';
+    spark.style.top = e.pageY + 'px';
+    spark.style.color = colors[Math.floor(Math.random() * colors.length)];
+    spark.style.fontSize = (8 + Math.random() * 10) + 'px';
+    document.body.appendChild(spark);
+
+    setTimeout(function () {
+      spark.remove();
+    }, 600);
+  });
+})();
