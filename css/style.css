@@ -442,6 +442,22 @@ a, button, .clickable {
   font-family: Tahoma, sans-serif;
 }
 
+/* --- BANNER AD --- */
+#banner-ad {
+  text-align: center;
+  padding: 8px;
+  background: #000;
+  border-left: 3px ridge #666;
+  border-right: 3px ridge #666;
+}
+
+#banner-img {
+  width: 100%;
+  max-width: 728px;
+  height: auto;
+  border: 2px outset #555;
+}
+
 /* --- FAKE STATUS BAR --- */
 #fake-statusbar {
   position: fixed;
