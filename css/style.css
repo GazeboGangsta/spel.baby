@@ -1,0 +1,20 @@
+/* Yespbellis Spell - The Elf From Outer Space */
+/* MySpace-inspired styles */
+
+/* Reset & base styles will go here */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* placeholder - to be designed */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+#container {
+  max-width: 960px;
+  margin: 0 auto;
+}
