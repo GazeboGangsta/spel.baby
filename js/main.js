@@ -44,3 +44,77 @@
   // Start the loading animation
   setTimeout(runStage, 500);
 })();
+
+// --- MUSIC PLAYER ---
+var tracks = [
+  {
+    title: 'The Elf From Outer Space',
+    src: 'Yesbellis and the Spells Songs/The Elf From Outer Space - Yesbellis & the Spells.mp3'
+  },
+  {
+    title: "Barmaid's Bosom",
+    src: "Yesbellis and the Spells Songs/Barmaid's Bosom - Yesbellis & the Spells.mp3"
+  },
+  {
+    title: 'Grog For My Dog',
+    src: 'Yesbellis and the Spells Songs/Grog For My Dog - Yesbellis & the Spells.mp3'
+  },
+  {
+    title: 'The Tavern of Tragedy',
+    src: 'Yesbellis and the Spells Songs/The Tavern of Tragedy - Yesbellis & the Spells.mp3'
+  }
+];
+
+var currentTrack = 0;
+var audio = new Audio();
+var isPlaying = false;
+var marquee = document.getElementById('track-marquee');
+
+function updateMarquee() {
+  var text = '';
+  for (var i = 0; i < tracks.length; i++) {
+    if (i === currentTrack) {
+      text += '▶ ' + tracks[i].title + ' ◀';
+    } else {
+      text += '★ ' + tracks[i].title;
+    }
+    text += ' ★ ';
+  }
+  marquee.textContent = text;
+}
+
+function playerPlay() {
+  if (!isPlaying) {
+    audio.src = tracks[currentTrack].src;
+    audio.play();
+    isPlaying = true;
+    updateMarquee();
+  } else if (audio.paused) {
+    audio.play();
+  }
+}
+
+function playerNext() {
+  currentTrack = (currentTrack + 1) % tracks.length;
+  audio.src = tracks[currentTrack].src;
+  if (isPlaying) {
+    audio.play();
+  }
+  updateMarquee();
+}
+
+function playerStop() {
+  audio.pause();
+  audio.currentTime = 0;
+  currentTrack = 0;
+  isPlaying = false;
+  marquee.textContent = '★ click PLAY!! to start the music ★';
+}
+
+// Auto-advance to next track when current one ends
+audio.addEventListener('ended', function () {
+  currentTrack = (currentTrack + 1) % tracks.length;
+  audio.src = tracks[currentTrack].src;
+  audio.play();
+  updateMarquee();
+});
