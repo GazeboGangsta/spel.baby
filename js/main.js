@@ -32,6 +32,7 @@
       loadingScreen.style.display = 'none';
       mainPage.style.display = 'block';
       initVisitorCounter();
+      updateStatusbar();
       // Autoplay music after "Flash" loads
       playerPlay();
       return;
@@ -43,6 +44,9 @@
     currentStage++;
     setTimeout(runStage, duration);
   }
+
+  // Fake popup before loading starts
+  alert('WELCOME 2 MY PAGE!! click ok 2 enter ^_^');
 
   // Start the loading animation
   setTimeout(runStage, 500);
@@ -131,6 +135,104 @@ audio.addEventListener('ended', function () {
   audio.play();
   updateMarquee();
 });
+
+// --- RIGHT-CLICK DISABLED ---
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+  alert('nice try!! u cant steal my code!! made with luv by yesbellis 💖');
+});
+
+// --- TITLE BAR SCROLLER ---
+(function () {
+  var titleText = '~*~ YeSbElLiS sPeLl ~*~ ThE eLf FrOm OuTeR sPaCe ~*~ spell.baby ~*~ ';
+  var titlePos = 0;
+  setInterval(function () {
+    document.title = titleText.substring(titlePos) + titleText.substring(0, titlePos);
+    titlePos = (titlePos + 1) % titleText.length;
+  }, 200);
+})();
+
+// --- KONAMI CODE ---
+(function () {
+  var konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+  var konamiPos = 0;
+  var overlay = document.getElementById('konami-overlay');
+
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode === konamiCode[konamiPos]) {
+      konamiPos++;
+      if (konamiPos === konamiCode.length) {
+        overlay.style.display = 'flex';
+        konamiPos = 0;
+      }
+    } else {
+      konamiPos = 0;
+    }
+  });
+
+  overlay.addEventListener('click', function () {
+    overlay.style.display = 'none';
+  });
+})();
+
+// --- "YOU ARE LISTENING TO" TOOLTIP ---
+var listeningTooltip = document.getElementById('listening-tooltip');
+var listeningTrack = document.getElementById('listening-track');
+
+audio.addEventListener('play', function () {
+  listeningTrack.textContent = tracks[currentTrack].title + ' - Yesbellis & the Spells';
+  listeningTooltip.style.display = 'block';
+  setTimeout(function () {
+    listeningTooltip.style.display = 'none';
+  }, 4000);
+});
+
+// --- CLOCK ---
+(function () {
+  var clockEl = document.getElementById('clock-time');
+  function updateClock() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = ('0' + now.getMinutes()).slice(-2);
+    var s = ('0' + now.getSeconds()).slice(-2);
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    clockEl.textContent = h + ':' + m + ':' + s + ' ' + ampm;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+})();
+
+// --- FALLING STARS ---
+(function () {
+  var starChars = ['⭐', '✨', '💫', '✦', '·'];
+  var starColors = ['#ff0', '#fff', '#ff69b4', '#0ff', '#aaf'];
+
+  function spawnStar() {
+    var star = document.createElement('div');
+    star.className = 'falling-star';
+    star.textContent = starChars[Math.floor(Math.random() * starChars.length)];
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.color = starColors[Math.floor(Math.random() * starColors.length)];
+    star.style.fontSize = (8 + Math.random() * 14) + 'px';
+    var duration = 3 + Math.random() * 5;
+    star.style.animationDuration = duration + 's';
+    document.body.appendChild(star);
+
+    setTimeout(function () {
+      star.remove();
+    }, duration * 1000);
+  }
+
+  setInterval(spawnStar, 800);
+})();
+
+// --- UPDATE FAKE STATUSBAR WITH VISITOR COUNT ---
+function updateStatusbar() {
+  var count = localStorage.getItem('spellbaby_visitors') || '847';
+  var el = document.getElementById('statusbar-marquee');
+  el.textContent = '~*~ welcome 2 my page ~*~ u r visitor #' + ('000000' + count).slice(-6) + ' ~*~ sign my guestbook ~*~ best viewed 800x600 ~*~ powered by the nat zeroes ~*~ rawr XD ~*~';
+}
 
 // --- CURSOR SPARKLE TRAIL ---
 (function () {
