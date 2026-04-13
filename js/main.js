@@ -28,11 +28,14 @@
 
   function runStage() {
     if (currentStage >= stages.length) {
-      // Loading "complete" — snap to main page
+      // Loading "complete" — popup, then snap to main page
+      alert('WELCOME 2 MY PAGE!! click ok 2 enter ^_^');
       loadingScreen.style.display = 'none';
       mainPage.style.display = 'block';
       initVisitorCounter();
       updateStatusbar();
+      // Clicking OK counts as user interaction — autoplay music
+      setTimeout(function () { playerPlay(); }, 100);
       return;
     }
     var target = stages[currentStage][0];
@@ -43,14 +46,7 @@
     setTimeout(runStage, duration);
   }
 
-  // Fake popup before loading starts — clicking OK gives us user interaction for autoplay
-  alert('WELCOME 2 MY PAGE!! click ok 2 enter ^_^');
-
-  // Start music immediately after user clicks OK (browser autoplay policy satisfied)
-  // Deferred slightly so the player vars are initialized first
-  setTimeout(function () { playerPlay(); }, 100);
-
-  // Start the loading animation
+  // Start the loading animation first
   setTimeout(runStage, 500);
 })();
 
