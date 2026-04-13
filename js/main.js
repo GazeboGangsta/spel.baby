@@ -31,6 +31,9 @@
       // Loading "complete" — snap to main page
       loadingScreen.style.display = 'none';
       mainPage.style.display = 'block';
+      initVisitorCounter();
+      // Autoplay music after "Flash" loads
+      playerPlay();
       return;
     }
     var target = stages[currentStage][0];
@@ -44,6 +47,16 @@
   // Start the loading animation
   setTimeout(runStage, 500);
 })();
+
+// --- VISITOR COUNTER ---
+function initVisitorCounter() {
+  var counterEl = document.getElementById('visitor-num');
+  var count = parseInt(localStorage.getItem('spellbaby_visitors') || '847', 10);
+  count++;
+  localStorage.setItem('spellbaby_visitors', count);
+  // Pad to 6 digits
+  counterEl.textContent = ('000000' + count).slice(-6);
+}
 
 // --- MUSIC PLAYER ---
 var tracks = [
