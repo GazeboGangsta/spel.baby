@@ -13,7 +13,7 @@
 
 /* --- BODY: cursor + starfield + base font --- */
 body {
-  cursor: url('logos/favicon-32x32.png'), auto;
+  cursor: url('../logos/favicon-32x32.png'), auto;
   background-color: #000;
   background-image:
     radial-gradient(1px 1px at 20px 30px, #fff, transparent),
@@ -32,7 +32,7 @@ body {
 }
 
 a, button, .clickable {
-  cursor: url('logos/favicon-32x32.png'), pointer;
+  cursor: url('../logos/favicon-32x32.png'), pointer;
 }
 
 /* --- LOADING SCREEN --- */
