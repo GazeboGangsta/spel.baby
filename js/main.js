@@ -33,8 +33,6 @@
       mainPage.style.display = 'block';
       initVisitorCounter();
       updateStatusbar();
-      // Autoplay music after "Flash" loads
-      playerPlay();
       return;
     }
     var target = stages[currentStage][0];
@@ -45,8 +43,12 @@
     setTimeout(runStage, duration);
   }
 
-  // Fake popup before loading starts
+  // Fake popup before loading starts — clicking OK gives us user interaction for autoplay
   alert('WELCOME 2 MY PAGE!! click ok 2 enter ^_^');
+
+  // Start music immediately after user clicks OK (browser autoplay policy satisfied)
+  // Deferred slightly so the player vars are initialized first
+  setTimeout(function () { playerPlay(); }, 100);
 
   // Start the loading animation
   setTimeout(runStage, 500);
