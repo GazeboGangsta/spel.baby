@@ -1,0 +1,46 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t spellbaby:latest .
+
+      - name: Save image as tarball
+        run: docker save spellbaby:latest | gzip > spellbaby.tar.gz
+
+      - name: Copy image to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "spellbaby.tar.gz"
+          target: "/opt/images/"
+
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/images
+            [ -f spellbaby-current.tar.gz ] && mv spellbaby-current.tar.gz spellbaby-previous.tar.gz
+            mv spellbaby.tar.gz spellbaby-current.tar.gz
+            docker load < spellbaby-current.tar.gz
+            cd /opt/TNZInf
+            docker compose up -d spellbaby
